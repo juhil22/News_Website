@@ -1,0 +1,25 @@
+{
+  "contacts": [
+    {
+      "name": "JUhil",
+      "email": "juhil@gmail.com",
+      "message": "hii",
+      "submittedAt": "2026-06-09T05:31:56.183Z",
+      "id": 1
+    },
+    {
+      "name": "Juhil",
+      "email": "juhil@gmail.com",
+      "message": "Hi there",
+      "submittedAt": "2026-06-09T07:42:08.836Z",
+      "id": 2
+    },
+    {
+      "name": "Juhil Patel",
+      "email": "juhil3421@gmail.com",
+      "message": "jiii",
+      "submittedAt": "2026-06-10T03:27:37.565Z",
+      "id": 3
+    }
+  ]
+}

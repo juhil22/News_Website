@@ -1,0 +1,20 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.ad-block {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+article {
+    margin-bottom: 20px;
+}

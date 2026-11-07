@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BZ Group કૌભાંડ - Satyarth Gunj News</title>
+  <link rel="stylesheet" href="News.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Hind Vadodara", sans-serif;
+      background-color: #f8f9fa;
+    }
+    .news-main-image {
+      width: 100%;
+      max-width: 500px;
+      height: 300px;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    .news-detail p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+      text-align: justify;
+    }
+    .news-detail h1 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: darkblue;
+    }
+    .news-date {
+      font-size: 0.9rem;
+      color: gray;
+      margin-bottom: 15px;
+    }
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+    }
+    .footer a {
+      color: white;
+    }
+    .footer a:hover {
+      color: #ffc107;
+    }
+    .footer h3 {
+      font-size: 1.2rem;
+    }
+    .comments-section {
+      margin-top: 30px;
+    }
+    .comment-box {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar Include -->
+<div id="navbar-container"></div>
+
+<!-- Content -->
+<div class="container mt-4">
+  <div class="row">
+    <!-- Main Article -->
+    <div class="col-lg-8">
+      <section class="news-detail">
+        <h1>પોંન્ઝી સ્કીમ અંતર્ગત B.Z ગ્રુપ સામે ૬ હજાર કરોડની CID ક્રાઈમે ફરીયાદ નોંધતા રોકાણકારો ચિંતામાં...!</h1>
+        <p class="news-date">Published on: <span>28 November 2024</span></p>
+        <img src="BZ Group.png" alt="BZ Group Scam" class="news-main-image">
+        <p>સાબરકાંઠા અરવલ્લી જિલ્લામાં પૉન્ઝી સ્કીમ અંતર્ગત મઢ ગ્રુપ દ્વારા ૬ હજાર કરોડથી વધુની સ્કીમથી હજારો લોકો ભોગ બન્યા છે. છેલ્લાં ત્રણ દિવસથી CID ની રેડ બાદ ૯ હજાર કરોડની ફરિયાદ થતા ઉત્તર ગુજરાતમાં ચકચાર મચી ગઈ છે.</p>
+        <p>બી.ઝેડ ગ્રુપ દ્વારા ૫% થી ૨૫% વ્યાજ આપવાનું વચન આપી અનેક લોકોને આકર્ષ્યા હતા. લોકોના કરોડો રૂપિયા અટવાઈ ગયા છે. કેટલાક રોકાણકારો હજુ પણ ડરના કારણે ખુલ્લા આવે નથી. CID દ્વારા તપાસ શરૂ કરાઈ છે.</p>
+        <p>ભુપેન્દ્રસિંહ ઝાલા સામે રેડ કોર્નર નોટિસ જાહેર કરવામાં આવી છે. પાંચ સંચાલકોની અટકાયત કરવામાં આવી છે. રાજકીય પૃષ્ઠભૂમિ ધરાવનારા કેટલાક લોકો પણ સ્કીમનો ભોગ બનેલા છે. તપાસના અંતે મોટા કૌભાંડ બહાર આવવાની સંભાવના છે.</p>
+
+        <!-- Comments -->
+        <div class="comments-section">
+          <h5>Comments</h5>
+          <div id="comments"></div>
+          <div class="input-group mt-3">
+            <input type="text" id="commentInput" class="form-control" placeholder="Write a comment...">
+            <button class="btn btn-primary" onclick="addComment()">Post</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <!-- Latest News -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Latest News</div>
+        <ul class="list-group list-group-flush" id="latest-news-list"></ul>
+      </div>
+
+      <!-- Advertisement -->
+      <div class="card">
+        <div class="card-header bg-warning text-dark">Advertisement</div>
+        <div class="card-body text-center">
+          <a href="https://maps.app.goo.gl/NnNYpEdBmUQhpzMv6">
+            <img src="pranali.png" alt="Ad Image" class="img-fluid">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer Include -->
+<div id="footer-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Load reusable navbar and footer
+fetch("navbar.html").then(res => res.text()).then(data => document.getElementById("navbar-container").innerHTML = data);
+fetch("footer.html").then(res => res.text()).then(data => document.getElementById("footer-container").innerHTML = data);
+
+// Comments functionality
+function addComment() {
+  const commentInput = document.getElementById("commentInput");
+  const commentText = commentInput.value.trim();
+  if (commentText) {
+    const commentDiv = document.createElement("div");
+    commentDiv.className = "comment-box border p-2 rounded bg-light";
+    commentDiv.textContent = commentText;
+    document.getElementById("comments").appendChild(commentDiv);
+    commentInput.value = "";
+  }
+}
+
+// Load latest news dynamically
+const latestNews = [
+  "📌 અમદાવાદમાં ભારે વરસાદથી ટ્રાફિક સમસ્યા",
+  "📌 ભાવનગરમાં આગ લાગવાથી નુકસાન",
+  "📌 વડોદરામાં પાણી ભરાવાનું ચિંતાજનક દ્રશ્ય",
+  "📌 મોરબી પુલ અકસ્માત મામલે પોલીસના નિવેદન"
+];
+const latestList = document.getElementById("latest-news-list");
+latestNews.forEach(news => {
+  const li = document.createElement("li");
+  li.className = "list-group-item";
+  li.textContent = news;
+  latestList.appendChild(li);
+});
+</script>
+</body>
+</html>

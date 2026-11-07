@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel – Satyarth Gunj News</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red:    #c0392b;
+      --dark:   #1a1a2e;
+      --bg:     #f0f2f5;
+      --card:   #ffffff;
+      --border: #e0e0e0;
+      --text:   #2d2d2d;
+      --muted:  #777;
+      --radius: 10px;
+    }
+    body { font-family: 'Quicksand', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* LOGIN */
+    #loginPage {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 60%, #c0392b22 100%);
+    }
+    .login-card {
+      background: var(--card); border-radius: 16px; padding: 48px 40px;
+      width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center;
+    }
+    .login-card .brand { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+    .login-card h1 { font-size: 24px; font-weight: 700; color: var(--dark); margin-bottom: 32px; }
+    .field { text-align: left; margin-bottom: 18px; }
+    .field label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .field input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 15px; color: var(--text); outline: none; transition: border-color 0.2s; }
+    .field input:focus { border-color: var(--red); }
+    .btn-login { width: 100%; padding: 13px; background: var(--red); color: #fff; border: none; border-radius: var(--radius); font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
+    .btn-login:hover { background: #a93226; }
+    #loginError { color: var(--red); font-size: 13px; margin-top: 14px; min-height: 18px; }
+
+    /* ADMIN */
+    #adminPage { display: none; }
+    .topbar { background: var(--dark); color: #fff; padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar .logo { font-size: 16px; font-weight: 700; letter-spacing: 1px; }
+    .topbar .logo span { color: var(--red); }
+    .topbar .right { display: flex; align-items: center; gap: 16px; }
+    .topbar .admin-badge { background: #ffffff18; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .btn-logout { background: var(--red); color: #fff; border: none; padding: 7px 18px; border-radius: 20px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-logout:hover { background: #a93226; }
+
+    .main { padding: 32px; max-width: 1200px; margin: 0 auto; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .page-header h2 { font-size: 22px; font-weight: 700; color: var(--dark); }
+    .page-header p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    .stats-row { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .stat-card { background: var(--card); border-radius: var(--radius); padding: 20px 28px; flex: 1; min-width: 140px; border-left: 4px solid var(--red); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .stat-card .num { font-size: 32px; font-weight: 700; color: var(--dark); line-height: 1; }
+    .stat-card .lbl { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+    .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .toolbar input { flex: 1; min-width: 200px; padding: 9px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .toolbar input:focus { border-color: var(--red); }
+    .btn-refresh { background: var(--dark); color: #fff; border: none; padding: 9px 20px; border-radius: var(--radius); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-refresh:hover { background: #2c2c50; }
+
+    .table-wrap { background: var(--card); border-radius: var(--radius); box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 700px; }
+    thead { background: var(--dark); color: #fff; }
+    thead th { padding: 14px 18px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fef5f5; }
+    tbody td { padding: 13px 18px; vertical-align: top; }
+    .td-id { font-weight: 700; color: var(--red); width: 50px; }
+    .td-name { font-weight: 600; white-space: nowrap; }
+    .td-email { color: #2980b9; font-size: 13px; white-space: nowrap; }
+    .td-message { max-width: 300px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .td-date { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .btn-delete { background: none; border: 1.5px solid #e74c3c; color: #e74c3c; padding: 5px 12px; border-radius: 6px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .btn-delete:hover { background: #e74c3c; color: #fff; }
+    #noData { text-align: center; padding: 48px; color: var(--muted); font-size: 15px; }
+    #loadingMsg { text-align: center; padding: 48px; color: var(--muted); }
+
+    @media (max-width: 600px) { .main { padding: 16px; } .topbar { padding: 0 16px; } }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="login-card">
+    <div class="brand">Satyarth Gunj News</div>
+    <h1>Admin Login</h1>
+    <div class="field">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter username" autocomplete="username"/>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password"/>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Login →</button>
+    <div id="loginError"></div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPage">
+  <div class="topbar">
+    <div class="logo">Satyarth Gunj <span>News</span> — Admin</div>
+    <div class="right">
+      <span class="admin-badge">👤 admin</span>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="page-header">
+      <div>
+        <h2>📨 Contact Form Submissions</h2>
+        <p>All messages saved to SQLite database — satyarth_gunj.db</p>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="num" id="totalCount">—</div><div class="lbl">Total Messages</div></div>
+      <div class="stat-card"><div class="num" id="todayCount">—</div><div class="lbl">Today</div></div>
+      <div class="stat-card"><div class="num" id="weekCount">—</div><div class="lbl">This Week</div></div>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" id="searchInput" placeholder="🔍  Search by name, email or message…" oninput="filterTable()"/>
+      <button class="btn-refresh" onclick="loadContacts()">⟳ Refresh</button>
+    </div>
+
+    <div class="table-wrap">
+      <div id="loadingMsg">Loading submissions…</div>
+      <table id="contactTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date &amp; Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <div id="noData" style="display:none;">No submissions yet. Submit the contact form to see data here.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API = 'http://localhost:3000';
+  let allContacts = [];
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('loginPage').style.display !== 'none') doLogin();
+  });
+
+  async function doLogin() {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const errEl    = document.getElementById('loginError');
+    errEl.textContent = '';
+    if (!username || !password) { errEl.textContent = 'Please enter both fields.'; return; }
+
+    try {
+      const res  = await fetch(`${API}/login`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('adminPage').style.display = 'block';
+        loadContacts();
+      } else {
+        errEl.textContent = '❌ ' + data.message;
+      }
+    } catch (err) {
+      errEl.textContent = '❌ Cannot connect to server. Is node server.js running?';
+    }
+  }
+
+  function doLogout() {
+    document.getElementById('adminPage').style.display = 'none';
+    document.getElementById('loginPage').style.display = 'flex';
+    document.getElementById('password').value = '';
+    document.getElementById('loginError').textContent = '';
+  }
+
+  async function loadContacts() {
+    document.getElementById('loadingMsg').style.display   = 'block';
+    document.getElementById('contactTable').style.display = 'none';
+    document.getElementById('noData').style.display       = 'none';
+
+    try {
+      const res = await fetch(`${API}/contacts`);
+      allContacts = await res.json();
+      updateStats(allContacts);
+      renderTable(allContacts);
+    } catch (err) {
+      document.getElementById('loadingMsg').textContent = '❌ Failed to load. Is the server running?';
+    }
+  }
+
+  function updateStats(contacts) {
+    const now  = new Date();
+    const today = contacts.filter(c => new Date(c.submitted_at).toDateString() === now.toDateString());
+    const week  = contacts.filter(c => (now - new Date(c.submitted_at)) / 86400000 <= 7);
+    document.getElementById('totalCount').textContent = contacts.length;
+    document.getElementById('todayCount').textContent = today.length;
+    document.getElementById('weekCount').textContent  = week.length;
+  }
+
+  function renderTable(contacts) {
+    document.getElementById('loadingMsg').style.display = 'none';
+    if (contacts.length === 0) { document.getElementById('noData').style.display = 'block'; return; }
+
+    document.getElementById('tableBody').innerHTML = contacts.map(c => `
+      <tr id="row-${c.id}">
+        <td class="td-id">${c.id}</td>
+        <td class="td-name">${esc(c.name)}</td>
+        <td class="td-email">${esc(c.email)}</td>
+        <td class="td-message">${esc(c.message)}</td>
+        <td class="td-date">${formatDate(c.submitted_at)}</td>
+        <td><button class="btn-delete" onclick="deleteContact(${c.id})">🗑 Delete</button></td>
+      </tr>
+    `).join('');
+    document.getElementById('contactTable').style.display = 'table';
+  }
+
+  function filterTable() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    renderTable(allContacts.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      c.email.toLowerCase().includes(q) ||
+      c.message.toLowerCase().includes(q)
+    ));
+  }
+
+  async function deleteContact(id) {
+    if (!confirm('Delete this entry from the database?')) return;
+    try {
+      await fetch(`${API}/contacts/${id}`, { method: 'DELETE' });
+      allContacts = allContacts.filter(c => c.id !== id);
+      updateStats(allContacts);
+      document.getElementById(`row-${id}`).remove();
+      if (allContacts.length === 0) {
+        document.getElementById('contactTable').style.display = 'none';
+        document.getElementById('noData').style.display = 'block';
+      }
+    } catch (err) { alert('Delete failed. Check server.'); }
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })
+      + ' ' + d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+  }
+
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
+</body>
+</html>

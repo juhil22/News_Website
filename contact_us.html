@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Satyarth Gunj News</title>
+  <link rel="icon" href="OIP2.jpg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="News.css">
+  <link rel="stylesheet" href="Contact_us.css">
+</head>
+<body>
+
+  <div id="date-time-bar" class="text-center py-1">
+    <span id="date-time"></span>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="news.html"><img src="OIP.jpg" alt="Logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="news.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Gujarat</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">World</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Sports</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Entertainment</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact_us.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
+          <li class="nav-item"><a class="nav-link" href="Privacy_Policy.html">Privacy</a></li>
+          <li class="nav-item"><a class="nav-link" href="about_us.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="epaper.html">E-Paper</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="contact-us" class="contact-us">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <p>If you have any inquiries, feedback, or news tips, feel free to reach out to us!</p>
+
+      <div id="form-success" class="alert alert-success" style="display:none;">
+        ✅ Your message has been saved! We will get back to you soon.
+      </div>
+      <div id="form-error" class="alert alert-danger" style="display:none;">
+        ❌ Something went wrong. Please make sure the server is running and try again.
+      </div>
+
+      <form id="contactForm" class="contact-form">
+        <div class="form-group">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message:</label>
+          <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+      </form>
+
+      <div class="contact-details">
+        <h3>Our Contact Details:</h3>
+        <p><strong>Email:</strong> satyarthgunjnews@gmail.com</p>
+        <p><strong>Phone:</strong> +91-**********</p>
+        <p><strong>Address:</strong> Laloda, Idar, Gujarat 383430</p>
+      </div>
+
+      <div class="social-media">
+        <h3>Follow Us:</h3>
+        <a href="https://www.facebook.com/satyarthgunjnews1/"><img src="Facebook_Logo_2023.png" alt="Facebook" width="30"></a>
+        <a href="https://twitter.com/gunjsatyarth"><img src="twitter.png" alt="Twitter" width="30"></a>
+        <a href="https://www.instagram.com/satyarthgunjnews/"><img src="Instagram_icon.png.webp" alt="Instagram" width="30"></a>
+        <a href="#"><img src="lINK.png" alt="LinkedIn" width="30"></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-md-4">
+          <h5>About Us</h5>
+          <p>Satyarth Gunj News is dedicated to delivering timely and accurate news from Gujarat and beyond.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Follow Us</h5>
+          <a href="https://www.facebook.com/satyarthgunjnews1/"><img src="Facebook_Logo_2023.png" width="30"></a>
+          <a href="https://twitter.com/gunjsatyarth"><img src="twitter.png" width="30"></a>
+          <a href="https://www.instagram.com/satyarthgunjnews/"><img src="Instagram_icon.png.webp" width="30"></a>
+          <a href="#"><img src="lINK.png" width="30"></a>
+        </div>
+      </div>
+      <hr class="my-3">
+      <div class="text-center small">&copy; 2024 Satyarth Gunj News. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="datetime.js"></script>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const btn     = document.getElementById('submitBtn');
+
+      btn.textContent = 'Sending...';
+      btn.disabled    = true;
+
+      document.getElementById('form-success').style.display = 'none';
+      document.getElementById('form-error').style.display   = 'none';
+
+      try {
+        const res  = await fetch('http://localhost:3000/contacts', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ name, email, message })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('form-success').style.display = 'block';
+          document.getElementById('contactForm').reset();
+        } else {
+          document.getElementById('form-error').style.display = 'block';
+        }
+      } catch (err) {
+        document.getElementById('form-error').style.display = 'block';
+      } finally {
+        btn.textContent = 'Submit';
+        btn.disabled    = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
